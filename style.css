@@ -1,14 +1,252 @@
 body {
     min-height: 100vh;
-    background-color: #0b0d10;
+    margin: 0;
+    /* High quality abstract dark background - Updated */
+    background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 13, 16, 0.7);
+    /* Dark overlay to make text pop */
+    z-index: -1;
+}
+
+/* Header Styles */
+.header {
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 10;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #008cf1, #e100ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    position: relative;
+    padding-bottom: 5px;
+    /* Increase hover area gap */
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s;
+    position: relative;
+    padding: 10px 0;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(to right, #008cf1, #e100ff);
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(11, 13, 16, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding-left: 15px;
+}
+
+/* Main Content Layout */
+.main-content {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    padding: 40px 20px;
 }
 
-button {
+/* Glassmorphism Form Container */
+.form-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    /* Border handled by pseudo-element for gradient */
+    border: none;
+    padding: 20px;
+    /* Reduced from 40px */
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    /* Increased width for desktop */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+    /* Entrance animation */
+}
 
+.form-container:hover {
+    box-shadow: 0 0 50px rgba(0, 140, 241, 0.3), 0 0 50px rgba(225, 0, 255, 0.3);
+}
+
+/* Gradient Border Mask */
+.form-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    /* Border thickness */
+    background: linear-gradient(to bottom right, #008cf1, #e100ff);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.form-title {
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 28px;
+    /* Increased relative size */
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    /* Increased from 16px */
+    color: #fff;
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    outline: none;
+    background: transparent;
+    transition: border-color 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 18px;
+    /* Increased from 16px */
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    border-bottom: 1px solid #008cf1;
+}
+
+.input-group input:focus~label,
+.input-group input:not(:placeholder-shown)~label {
+    top: -20px;
+    font-size: 14px;
+    /* Increased from 12px */
+    color: #008cf1;
+}
+
+/* Submit Button */
+.submit-btn {
+    margin-top: 10px;
+    width: 100%;
     border-radius: 1000px;
     border: none;
     background-color: #161a20;
@@ -16,13 +254,17 @@ button {
     position: relative;
     padding: 1em 2em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    transition: transform 0.2s;
 }
 
-button::after {
+.submit-btn::after {
     content: "";
     position: absolute;
     width: 103%;
@@ -31,9 +273,122 @@ button::after {
     border: none;
     background-image: linear-gradient(to bottom right, #008cf1, #e100ff);
     z-index: -1;
+    transition: opacity 0.3s ease;
 }
 
-button:hover {
+.submit-btn:hover {
     z-index: 0;
-    box-shadow: 40px 0 100px #008df1bc, -40px 0 100px #e100ffc0;
+    box-shadow: 0 0 20px #008df1bc, 0 0 20px #e100ffc0;
+    transform: scale(1.02);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Footer Styles */
+.footer {
+    width: 100%;
+    padding: 20px 50px;
+    background: rgba(11, 13, 16, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+
+    /* Tablet */
+    .form-container {
+        width: 360px;
+        padding: 20px;
+        /* Reduced padding */
+    }
+
+    .header {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile */
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        background: rgba(11, 13, 16, 0.95);
+        /* More solid background on mobile for readability */
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .form-container {
+        width: 90%;
+        max-width: 320px;
+        padding: 20px;
+        /* Reduced padding */
+    }
+
+    .background-overlay {
+        background: rgba(11, 13, 16, 0.8);
+        /* Slightly darker overlay on mobile */
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
 }
